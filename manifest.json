@@ -1,0 +1,19 @@
+{
+  "name": "Immerse.lang",
+  "version": "1.0",
+  "description": "Google Chrome Extension that allows user to define a set of words which will be replaced with translations to a chosen language.",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["page.js"],
+      "css": ["page.css"]
+    }
+  ],
+  "browser_action": {
+  "default_title": "Immerse.lang",
+  "default_popup": "popup.html"
+  },
+  "icons": {
+  },
+  "manifest_version": 2
+}

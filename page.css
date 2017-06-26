@@ -1,0 +1,62 @@
+body {
+  width: 200px;
+  background-color: #fefefe;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  border: 0;
+  color: white;
+  font-size: 20px;
+  height: 50px;
+  margin: 5px;
+  width: 95%;
+}
+
+.Title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 18px;
+  margin: 5px;
+}
+
+.instr {
+  font-family: 'Palanquin', sans-serif;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  text-align: left;
+  font-size: 12px;
+}
+
+.bar {
+  margin-top: 2.5px;
+  height: 1px;
+  width: 80%;
+  background-color: #212121;
+}
+
+.bordered {
+  border: 5px solid red;
+}
+
+.start {
+   background-color: #4caf50;
+}
+
+.end {
+  background-color: red;
+}
+
+.stop {
+  height: 0px;
+  width: 0px;
+}
+
+.favicon {
+  /*background-image: url('./faviconSentinel.png');*/
+  background-size: cover;
+  height: 100px;
+  width: 100px;
+  margin: 20px;
