@@ -16,10 +16,112 @@ button {
   width: 95%;
 }
 
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+
+.row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.Immersion {
+  width: 80vw;
+}
+
+/*----------------------------------------------------------------------------*/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 17px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 2.5px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before { /* this will be in JAVASCRIPT */
+  -webkit-transform: translateX(14.5px);
+  -ms-transform: translateX(14.5px);
+  transform: translateX(14.5px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+/*----------------------------------------------------------------------------*/
+
+.language {
+  background: transparent;
+  padding: 0px;
+  border: 0px;
+  border-bottom: 1px solid black;
+  width: 80vw;
+  text-align: center;
+  font-size: 7.5vw;
+}
+
+.language:focus {
+  outline: 0 !important;
+}
+
+.inactive {
+  display: none !important;
+}
+
+.leftContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 .Title {
   font-family: 'Archivo Black', sans-serif;
   font-size: 18px;
-  margin: 5px;
+  margin: 10px;
 }
 
 .instr {
@@ -31,7 +133,7 @@ button {
 }
 
 .bar {
-  margin-top: 2.5px;
+  margin: 2.5px;
   height: 1px;
   width: 80%;
   background-color: #212121;
@@ -60,3 +162,8 @@ button {
   height: 100px;
   width: 100px;
   margin: 20px;
+}
+
+#alignText {
+  text-align: center;
+}
