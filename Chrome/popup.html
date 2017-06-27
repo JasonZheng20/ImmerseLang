@@ -6,16 +6,18 @@
     <link rel="stylesheet" href="page.css"/>
   </head>
   <body>
-    <!-- <div class = "favicon"></div> ONE DAY I WILL DO THIS WITH WEBAUTH-->
     <div class = "row">
-      <h2 class = "Title">Immerse</h2>
+      <h2 class = "title">Immerse</h2>
       <label class="switch">
-        <input type="checkbox">
+        <input type="checkbox" class = "onOrOff">
         <div class="slider round"></div>
       </label>
     </div>
-    <input class='language' type="text" id="alignText" placeholder="Select any Language"/>
-    <input class='Immersion' type="range" id="alignText"/>
-    <p class = "instr">Level: </p>
+    <input class='language lang' type="text" id="alignText" placeholder="Select any Language"/>
+
+    <input class='language word' type="text" id="alignText" placeholder="Choose a word"/> <!--temp until features trickle in-->
+
+    <div class = "deckList"></div>
+    <div class = "add">+</div>
   </body>
 </html>

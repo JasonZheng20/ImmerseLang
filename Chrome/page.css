@@ -5,6 +5,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 0px;
 }
 
 button {
@@ -70,11 +71,11 @@ form {
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #27a50b;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #27a50b;
 }
 
 input:checked + .slider:before { /* this will be in JAVASCRIPT */
@@ -119,10 +120,24 @@ input:checked + .slider:before { /* this will be in JAVASCRIPT */
   align-items: flex-start;
 }
 
-.Title {
+.title {
   font-family: 'Archivo Black', sans-serif;
   font-size: 22px;
-  margin: 10px;
+  margin: 10px 17.5px;
+}
+
+.add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #fefefe;
+  margin-top: 15px;
+  width: 40px;
+  height: 20px;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  background-color: #27a50b;
 }
 
 .instr {
@@ -131,13 +146,6 @@ input:checked + .slider:before { /* this will be in JAVASCRIPT */
   margin-bottom: 0px;
   text-align: left;
   font-size: 12px;
-}
-
-.bar {
-  margin: 2.5px;
-  height: 1px;
-  width: 80%;
-  background-color: #212121;
 }
 
 .bordered {
