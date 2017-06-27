@@ -2,27 +2,31 @@ chrome.runtime.onConnect.addListener(function(port) {
   port.onMessage.addListener(onMessage);
 });
 
-function onMessage(message) {
+async function onMessage(message) {
   const msg = message.split(':');
   const active = msg[0]; //delimit the message by ':'
   if (active) {
     console.log('active');
     console.log(msg[1]); //gets the language
-    console.log(msg[2]); //gets the word
+    this.word = new RegExp('\\b' + msg[2] + '\\b', "g"); //make it so if the word is an article like "the", find the word following
+    const translationQuery = await fetch('/getTranslation/sp/' + encodeURIComponent(msg[2]));
+    this.translation = await translationQuery.json();
+    console.log(translationQuery);
+
+    traversePage(document.querySelector('body'));
   }
   else {
     console.log('inactive');
   }
 }
 
-function traversePage() {
-
-}
-
-function isIsolatedText(node) {
-
-}
-
-function replaceText(node) {
-  
+function traversePage(node) {
+  if (node.nodeType == Node.TEXT_NODE) {
+    if (node.textContent.match(this.word)) {
+      node.textContent = node.textContent.replace(this.word, "REPLACEMENT STRING");
+    }
+  }
+  for (const child of node.childNodes) {
+    traversePage(child);
+  }
 }
