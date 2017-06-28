@@ -12,8 +12,8 @@ async function onMessage(message) {
     console.log('word: ' + msg[2]);
     this.word = new RegExp('\\b' + msg[2] + '\\b', "g"); //make it so if the word is an article like "the", find the word following
     // console.log('https://localhost:3000/getTranslation/es/' + encodeURIComponent(msg[2] + '/'));
-    const translationQuery = await fetch('https://localhost:3000/getTranslation/es/' + encodeURIComponent(msg[2] + '/')); //current functionality for spanish
-    this.translation = await translationQuery.json();
+    const translationQuery = await fetch('localhost:3000/getTranslation/es/' + encodeURIComponent(msg[2] + '/')); //current functionality for spanish
+    this.translation = await translationQuery.json(); //THE FIX IS MAKE A SERVER WITH HTTPS THATS IT ^
     console.log(translationQuery);
 
     traversePage(document.querySelector('body'));
