@@ -5,15 +5,16 @@ chrome.runtime.onConnect.addListener(function(port) {
 async function onMessage(message) {
   const msg = message.split(':');
   const active = msg[0]; //delimit the message by ':'
+  console.log(active);
   if (active) {
     console.log('active');
     console.log('language: ' + msg[1]); //gets the language
     console.log('word: ' + msg[2]);
     this.word = new RegExp('\\b' + msg[2] + '\\b', "g"); //make it so if the word is an article like "the", find the word following
     // console.log('https://localhost:3000/getTranslation/es/' + encodeURIComponent(msg[2] + '/'));
-    // const translationQuery = await fetch('https://localhost:3000/getTranslation/es/' + encodeURIComponent(msg[2] + '/')); //current functionality for spanish
-    // this.translation = await translationQuery.json();
-    // console.log(translationQuery);
+    const translationQuery = await fetch('https://localhost:3000/getTranslation/es/' + encodeURIComponent(msg[2] + '/')); //current functionality for spanish
+    this.translation = await translationQuery.json();
+    console.log(translationQuery);
 
     traversePage(document.querySelector('body'));
   }

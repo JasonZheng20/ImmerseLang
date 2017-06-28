@@ -61,14 +61,14 @@ const languageCodes = {
 function sendMessage(active, translatedWord, word) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     var port = chrome.tabs.connect(tabs[0].id);
-    port.postMessage(active + ':' + translatedWord + ':' + word);
+    if (active == true) port.postMessage(active + ':' + translatedWord + ':' + word);
   });
 }
 
 this.onChange = this.onChange.bind(this);
 this.isOn = false;
 
-async function onChange() {
+function onChange() {
   this.isOn = !this.isOn;
   const lang = document.querySelector('.lang').value.toLowerCase();
   const word = document.querySelector('.word').value.toLowerCase();
