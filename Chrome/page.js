@@ -9,8 +9,9 @@ async function onMessage(message) {
     console.log('active');
     console.log(msg[1]); //gets the language
     this.word = new RegExp('\\b' + msg[2] + '\\b', "g"); //make it so if the word is an article like "the", find the word following
-    const translationQuery = await fetch('/getTranslation/sp/' + encodeURIComponent(msg[2]));
-    this.translation = await translationQuery.json();
+    console.log('/getTranslation/es/' + encodeURIComponent(msg[2] + '/'));
+    // const translationQuery = await fetch('/getTranslation/es/' + encodeURIComponent(msg[2] + '/')); //current functionality for spanish
+    // this.translation = await translationQuery.json();
     console.log(translationQuery);
 
     traversePage(document.querySelector('body'));
