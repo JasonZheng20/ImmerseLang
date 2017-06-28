@@ -13,6 +13,19 @@ const decks_sheet = createGsaSpreadsheet(key.client_email, key.private_key, deck
 const translation_sheet = createGsaSpreadsheet(key.client_email, key.private_key, translation_ID);
 app.use(express.static('public'));
 
+//-------------------------------------------------------------HTTPS BOILERPLATE
+// var fs = require('fs');
+// var http = require('http');
+// var https = require('https');
+//
+// var privateKey = fs.readFileSync( 'privatekey.pem' );
+// var certificate = fs.readFileSync( 'certificate.pem' );
+//
+// https.createServer({
+//     key: privateKey,
+//     cert: certificate
+// }, app).listen(port);
+
 //-------------------------------------------------------modified-vrk-gsa-sheets
 const googleapis = require('googleapis');
 const googleAuth = require('google-auth-library');
@@ -197,7 +210,8 @@ async function initiateTranslation(req, res) {
   const newRow = await translation_sheet.getRows();
   const newRow0 = newRow.rows[0];
   const wordTranslation = newRow0[0];
-  res.json( { translation: wordTtranslation} );
+  console.log(wordTranslation);
+  res.json( { translation: wordTranslation} );
 }
 app.get('/getTranslation/:lang/:word', jsonParser, initiateTranslation);
 
