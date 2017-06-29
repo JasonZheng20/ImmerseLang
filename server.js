@@ -201,7 +201,7 @@ module.exports = createGsaSpreadsheet;
 async function initiateTranslation(req, res) { //when i do this twice in a row, i get the old word :(
   const word = req.params.word;
   const lang = req.params.lang;
-  const row = '=GOOGLETRANSLATE("' + word + '","en","' + lang + '")';
+  const row = '=GOOGLETRANSLATE("' + word + '","auto","' + lang + '")';
   const result = await translation_sheet.getRows();
   const rows = result.rows[0];
   const rowArray = [];

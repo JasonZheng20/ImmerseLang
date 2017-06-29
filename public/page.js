@@ -2,16 +2,17 @@ chrome.runtime.onConnect.addListener(function(port) {
   port.onMessage.addListener(onMessage);
 });
 
-//------------------------------------------------------TEST WITH APPEND ONCLICK
+//----------------------------------------------------------------APPEND ONCLICK
 
 var bubbleDOM = document.createElement('div');
 bubbleDOM.setAttribute('class', 'selection_bubble');
 document.body.appendChild(bubbleDOM);
 
-// Move that bubble to the appropriate location.
 function renderBubble(mouseX, mouseY, selection) {
-  // bubbleDOM.innerHTML = selection;
   bubbleDOM.textContent = "Originally: " + selection;
+  //add pronounciation and sound element
+  //Sound API: Forvo API
+  //even with sound, need to figure out who to trigger it since i get issues with hovering etc.
   mouseY = mouseY - bubbleDOM.offsetHeight;
   bubbleDOM.style.top = mouseY + 'px';
   bubbleDOM.style.left = mouseX + 'px';
@@ -41,7 +42,7 @@ async function onMessage(message) {
     }
   }
   else {
-    console.log('inactive'); //for some reason this is treated as the catch?
+    console.log('inactive');
   }
 }
 
@@ -88,12 +89,4 @@ function traversePage(node, word, language, translation, literal) {
   for (const child of node.childNodes) {
     traversePage(child, word, language, translation, literal);
   }
-}
-
-function onHover() {
-
-}
-
-function offHover() {
-
 }
