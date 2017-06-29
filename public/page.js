@@ -2,11 +2,15 @@ chrome.runtime.onConnect.addListener(function(port) {
   port.onMessage.addListener(onMessage);
 });
 
+this.onHover = this.onHover.bind(this);
+this.offHover = this.offHover.bind(this);
+
 async function onMessage(message) {
   const msg = message.split(':');
   const active = msg[0]; //delimit the message by ':'
   if (active) {
     const word = new RegExp('\\b' + msg[2] + '\\b', "g"); //make it so if the word is an article like "the", find the word following
+    document.body.style = "opacity: 0.3";
     const translationQuery = await fetch('http://localhost:3000/getTranslation/' + encodeURIComponent(msg[1]) + '/' + encodeURIComponent(msg[2])); //current functionality for spanish
     const translationJson = await translationQuery.json(); //THE FIX IS MAKE A SERVER WITH HTTPS THATS IT ^
     if (Object.values(translationJson) == 'success') {
@@ -14,12 +18,17 @@ async function onMessage(message) {
       const finishJson = await translationFinish.json();
       const translationTemp = Object.values(finishJson);
       const translation = translationTemp[1]; //obviously this doesnt scale well
-      traversePage(document.querySelector('body'), word, msg[1], translation);
+      const traverse = await traversePage(document.querySelector('body'), word, msg[1], translation);
+      const doneLoading = await finish();
     }
   }
   else {
     console.log('inactive');
   }
+}
+
+function finish() {
+  document.body.style = "opacity: 1";
 }
 
 function insertAfter(newNode, referenceNode) {
@@ -36,7 +45,6 @@ function traversePage(node, word, language, translation) {
         const newNode1 = document.createElement('span');
         newNode1.textContent = translation;
         insertAfter(newNode1, currNode);
-        // node.parentNode.append(newNode1);
         console.log(newNode1);
         newNode1.addEventListener('mouseover', function () { //create a div right there on the z axis
           console.log("originally: " + word);
@@ -46,17 +54,18 @@ function traversePage(node, word, language, translation) {
         newNode2.textContent = textArr[i];
         insertAfter(newNode2, newNode1);
         currNode = newNode2;
-        // node.parentNode.append(newNode2);
       }
-      // node.textContent = node.textContent.replace(word, translation);
-      // console.log(node.parentNode); //might need to split it up each time so i can get the isolated word and create a tag on it
-      // node.parentNode.addEventListener('mouseover', function () { //create a div right there on the z axis
-      //   console.log("originally: " + word);
-      //   console.log("Translation in " + language + ": " + translation);
-      // });
     }
   }
   for (const child of node.childNodes) {
     traversePage(child, word, language, translation);
   }
+}
+
+function onHover() {
+
+}
+
+function offHover() {
+
 }
