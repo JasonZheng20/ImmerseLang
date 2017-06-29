@@ -10,6 +10,7 @@ document.body.appendChild(bubbleDOM);
 
 function renderBubble(mouseX, mouseY, selection) {
   bubbleDOM.textContent = "Originally: " + selection;
+  //add language
   //add pronounciation and sound element
   //Sound API: Forvo API
   //even with sound, need to figure out who to trigger it since i get issues with hovering etc.
@@ -19,27 +20,29 @@ function renderBubble(mouseX, mouseY, selection) {
   bubbleDOM.style.visibility = 'visible';
 }
 
-//------------------------------------------------------------------------------
-
-this.onHover = this.onHover.bind(this);
-this.offHover = this.offHover.bind(this);
+//----------------------------------------------------------------Main functions
 
 async function onMessage(message) {
   const msg = message.split(':');
   const active = msg[0]; //delimit the message by ':'
   if (active) {
-    const word = new RegExp('\\b' + msg[2] + '\\b', "g"); //make it so if the word is an article like "the", find the word following
+    const decks = msg[2];
+    const deckArray = decks.split('~');
+    console.log(decks);
     document.body.style = "opacity: 0.3";
-    const translationQuery = await fetch('http://localhost:3000/getTranslation/' + encodeURIComponent(msg[1]) + '/' + encodeURIComponent(msg[2])); //current functionality for spanish
-    const translationJson = await translationQuery.json(); //THE FIX IS MAKE A SERVER WITH HTTPS THATS IT, ALSO CREATE A CATCH ^
-    if (Object.values(translationJson) == 'success') {
-      const translationFinish = await fetch('http://localhost:3000/finishTranslation/' + encodeURIComponent(msg[2]));
-      const finishJson = await translationFinish.json();
-      const translationTemp = Object.values(finishJson);
-      const translation = translationTemp[1]; //obviously this doesnt scale well
-      const traverse = await traversePage(document.querySelector('body'), word, msg[1], translation, msg[2]);
-      const doneLoading = await finish();
+    for (let i = 0; i < deckArray.length; i ++) {
+      const word = new RegExp('\\b' + deckArray[i] + '\\b', "g"); //make it so if the word is an article like "the", find the word following
+      const translationQuery = await fetch('http://localhost:3000/getTranslation/' + encodeURIComponent(msg[1]) + '/' + encodeURIComponent(deckArray[i])); //current functionality for spanish
+      const translationJson = await translationQuery.json(); //THE FIX IS MAKE A SERVER WITH HTTPS THATS IT, ALSO CREATE A CATCH ^
+      if (Object.values(translationJson) == 'success') {
+        const translationFinish = await fetch('http://localhost:3000/finishTranslation/' + encodeURIComponent(deckArray[i]));
+        const finishJson = await translationFinish.json();
+        const translationTemp = Object.values(finishJson);
+        const translation = translationTemp[1]; //obviously this doesnt scale well
+        const traverse = await traversePage(document.querySelector('body'), word, msg[1], translation, deckArray[i]);
+      }
     }
+    const doneLoading = await finish();
   }
   else {
     console.log('inactive');
