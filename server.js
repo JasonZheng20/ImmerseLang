@@ -198,22 +198,33 @@ module.exports = createGsaSpreadsheet;
 
 //------------------------------------------------------------------Translations
 
-async function initiateTranslation(req, res) {
+async function initiateTranslation(req, res) { //when i do this twice in a row, i get the old word :(
   const word = req.params.word;
   const lang = req.params.lang;
   const row = '=GOOGLETRANSLATE("' + word + '","en","' + lang + '")';
   const result = await translation_sheet.getRows();
   const rows = result.rows[0];
   const rowArray = [];
-  rowArray[0] = row;
-  translation_sheet.setRow(0, rowArray);
-  const newRow = await translation_sheet.getRows();
-  const newRow0 = newRow.rows[0];
-  const wordTranslation = newRow0[0];
-  console.log(wordTranslation);
-  res.json( { translation: wordTranslation} );
+  rowArray[0] = word;
+  rowArray[1] = row;
+  const set = await translation_sheet.setRow(0, rowArray);
+  const send = await res.json({status: 'success'});
 }
 app.get('/getTranslation/:lang/:word', jsonParser, initiateTranslation);
+
+async function finishTranslation(req, res) {
+  const word = req.params.word
+  let wordTranslation = "Loading..."
+  while (wordTranslation == "Loading...") {
+    const newRow = await translation_sheet.getRows(); //have a way to handle loading...
+    const newRow0 = newRow.rows[0];
+    wordTranslation = newRow0[1];
+  }
+  res.json( {
+    original: word,
+    translation: wordTranslation} );
+}
+app.get('/finishTranslation/:word', jsonParser, finishTranslation);
 
 //-----------------------------------------------------------------Miscellaneous
 // Please don't change this; this is needed to deploy on Heroku.
