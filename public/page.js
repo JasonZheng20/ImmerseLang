@@ -4,12 +4,23 @@ chrome.runtime.onConnect.addListener(function(port) {
 
 //----------------------------------------------------------------APPEND ONCLICK
 
+var initiate = true;
+var currNode1 = "";
+
 var bubbleDOM = document.createElement('div');
 bubbleDOM.setAttribute('class', 'selection_bubble');
 document.body.appendChild(bubbleDOM);
+document.querySelector('body').addEventListener('click', function (event) {
+  if (document.querySelector('.selection_bubble').style.visibility == "visible" && initiate == false) {
+    currNode1.classList.remove('highlighted2');
+    bubbleDOM.style.visibility = 'hidden';
+    initiate = true;
+  }
+} );
 
 function renderBubble(mouseX, mouseY, selection) {
   bubbleDOM.textContent = "Originally: " + selection;
+
   //add language
   //add pronounciation and sound element
   //Sound API: Forvo API
@@ -18,6 +29,7 @@ function renderBubble(mouseX, mouseY, selection) {
   bubbleDOM.style.top = mouseY + 'px';
   bubbleDOM.style.left = mouseX + 'px';
   bubbleDOM.style.visibility = 'visible';
+  initiate = false;
 }
 
 //----------------------------------------------------------------Main functions
@@ -76,12 +88,19 @@ function traversePage(node, word, language, translation, literal) {
         newNode1.textContent = translation;
         insertAfter(newNode1, currNode);
         console.log(newNode1);
-        newNode1.addEventListener('mouseenter', function () { //create a div right there on the z axis
+        newNode1.addEventListener('mouseenter', function() {
+          newNode1.classList.add('highlighted');
+        });
+        newNode1.addEventListener('mouseleave', function() {
+          newNode1.classList.remove('highlighted');
+        });
+        newNode1.addEventListener('click', function (event) { //create a div right there on the z axis
+          event.stopPropagation();
+          if (currNode1 != "" ) currNode1.classList.remove('highlighted2');
+          newNode1.classList.add('highlighted2');
+          currNode1 = newNode1;
           renderBubble(getOffset(newNode1).left + newNode1.offsetWidth/3, getOffset(newNode1).top - newNode1.offsetHeight/3, literal);
         });
-        newNode1.addEventListener('mouseleave', function () {
-          bubbleDOM.style.visibility = 'hidden';
-        } );
         const newNode2 = document.createElement('span');
         newNode2.textContent = textArr[i];
         insertAfter(newNode2, newNode1);

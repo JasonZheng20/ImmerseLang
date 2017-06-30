@@ -7,3 +7,11 @@
   padding: 2.5px;
   background-color: #fefefe;
 }
+
+.highlighted {
+  background-color: yellow !important;
+}
+
+.highlighted2 {
+  background-color: yellow !important;
+}
