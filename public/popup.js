@@ -92,4 +92,16 @@ function onChange() {
 
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('.onOrOff').addEventListener('change', () => onChange());
+  document.querySelector('.c1').addEventListener('click', function() {
+    const b1 = document.querySelector('.b1').classList.toggle('start');
+  });
+  document.querySelector('.c2').addEventListener('click', function() {
+    const b2 = document.querySelector('.b2').classList.toggle('start');
+  });
+  document.querySelector('.c3').addEventListener('click', function() {
+    const b3 = document.querySelector('.b3').classList.toggle('start');
+  });
+  document.querySelector('.c4').addEventListener('click', function() {
+    const b4 = document.querySelector('.b4').classList.toggle('start');
+  });
 });

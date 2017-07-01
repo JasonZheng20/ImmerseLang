@@ -18,9 +18,9 @@ document.querySelector('body').addEventListener('click', function (event) {
   }
 } );
 
-function renderBubble(mouseX, mouseY, selection) {
+function renderBubble(mouseX, mouseY, selection, language) {
   bubbleDOM.textContent = "Originally: " + selection;
-
+  console.log('language code: ' + language);
   //add language
   //add pronounciation and sound element
   //Sound API: Forvo API
@@ -80,7 +80,7 @@ function getOffset(el) {
 function traversePage(node, word, language, translation, literal) {
   if (node.nodeType == Node.TEXT_NODE) {
     if (node.textContent.match(word)) {
-      const textArr = node.textContent.split(word); //not sure if this works yet, SOMETIMES THIS GETS SUBSTRING ARGH
+      const textArr = node.textContent.split(word);
       node.textContent = textArr[0];
       let currNode = node;
       for (let i = 1; i < textArr.length; i++) {
@@ -94,12 +94,12 @@ function traversePage(node, word, language, translation, literal) {
         newNode1.addEventListener('mouseleave', function() {
           newNode1.classList.remove('highlighted');
         });
-        newNode1.addEventListener('click', function (event) { //create a div right there on the z axis
+        newNode1.addEventListener('click', function (event) {
           event.stopPropagation();
           if (currNode1 != "" ) currNode1.classList.remove('highlighted2');
           newNode1.classList.add('highlighted2');
           currNode1 = newNode1;
-          renderBubble(getOffset(newNode1).left + newNode1.offsetWidth/3, getOffset(newNode1).top - newNode1.offsetHeight/3, literal);
+          renderBubble(getOffset(newNode1).left + newNode1.offsetWidth/3, getOffset(newNode1).top - newNode1.offsetHeight/3, literal, language);
         });
         const newNode2 = document.createElement('span');
         newNode2.textContent = textArr[i];

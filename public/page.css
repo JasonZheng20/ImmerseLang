@@ -23,6 +23,12 @@ form {
   align-items: center;
 }
 
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
 .row {
   display: flex;
   justify-content: flex-start;
@@ -71,11 +77,11 @@ form {
 }
 
 input:checked + .slider {
-  background-color: #27a50b;
+  background-color: #2b4ae2;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #27a50b;
+  box-shadow: 0 0 1px #2b4ae2;
 }
 
 input:checked + .slider:before { /* this will be in JAVASCRIPT */
@@ -123,7 +129,8 @@ input:checked + .slider:before { /* this will be in JAVASCRIPT */
 .title {
   font-family: 'Archivo Black', sans-serif;
   font-size: 22px;
-  margin: 10px 17.5px;
+  margin: 10px 5px;
+  /*margin-right: 17.5px;*/
 }
 
 .add {
@@ -137,15 +144,21 @@ input:checked + .slider:before { /* this will be in JAVASCRIPT */
   height: 20px;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
-  background-color: #27a50b;
+  background-color: #2b4ea2;
 }
 
 .instr {
-  font-family: 'Palanquin', sans-serif;
-  margin-top: 5px;
-  margin-bottom: 0px;
+  font-family: 'Nunito', sans-serif;
+  margin: 0px 0px;
   text-align: left;
   font-size: 12px;
+}
+
+.favicon {
+  height: 50px;
+  width: 50px;
+  background-image: url('ImmerseFavicon.png');
+  background-size: cover;
 }
 
 .bordered {
@@ -153,7 +166,7 @@ input:checked + .slider:before { /* this will be in JAVASCRIPT */
 }
 
 .start {
-   background-color: #4caf50;
+   background-color: #2b4ea2;
 }
 
 .end {
@@ -165,14 +178,19 @@ input:checked + .slider:before { /* this will be in JAVASCRIPT */
   width: 0px;
 }
 
-.favicon {
-  /*background-image: url('./faviconSentinel.png');*/
-  background-size: cover;
-  height: 100px;
-  width: 100px;
-  margin: 20px;
-}
-
 #alignText {
   text-align: center;
+}
+
+.box {
+  height: 10px;
+  width: 10px;
+  outline: 1px solid #212121;
+  margin-right: 10px;
+}
+
+.check {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
