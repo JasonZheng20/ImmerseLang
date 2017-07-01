@@ -1,5 +1,5 @@
 body {
-  width: 200px;
+  width: 275px;
   background-color: #fefefe;
   display: flex;
   flex-direction: column;
@@ -9,12 +9,18 @@ body {
 }
 
 button {
-  border: 0;
+  background: transparent;
+  padding: 5px;
+  border: 0px;
   color: white;
-  font-size: 20px;
-  height: 50px;
-  margin: 5px;
-  width: 95%;
+  /*border-bottom: 1px solid black;*/
+  width: 80vw;
+  text-align: center;
+  font-size: 6.5vw;
+}
+
+button:focus {
+  outline: 0 !important;
 }
 
 form {
@@ -27,12 +33,14 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: left;
 }
+
 .row {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  padding: 20px;
 }
 
 .Immersion {
@@ -46,6 +54,8 @@ form {
   display: inline-block;
   width: 44px;
   height: 22px;
+  margin-top: 2.5px;
+  margin-bottom: 15px;
 }
 
 /* Hide default HTML checkbox */
@@ -77,11 +87,11 @@ form {
 }
 
 input:checked + .slider {
-  background-color: #2b4ae2;
+  background-color: #63acff;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2b4ae2;
+  box-shadow: 0 0 1px #63acff;
 }
 
 input:checked + .slider:before { /* this will be in JAVASCRIPT */
@@ -100,14 +110,39 @@ input:checked + .slider:before { /* this will be in JAVASCRIPT */
 }
 /*----------------------------------------------------------------------------*/
 
+.containBar {
+  background-color: #757575;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.topBar {
+  background-color: #63acff;
+  /*opacity: 0.5;*/
+  width: 100vw;
+  height: 10px;
+  margin: 0px 0px;
+  margin-bottom: -8px;
+}
+
+.bar {
+  background-color: #212121;
+  width: 100vw;
+  height: 1px;
+  margin-bottom: 5px;
+}
+
 .language {
   background: transparent;
   padding: 0px;
   border: 0px;
-  border-bottom: 1px solid black;
+  /*color: white;*/
+  /*border-bottom: 1px solid black;*/
   width: 80vw;
   text-align: center;
-  font-size: 7.5vw;
+  font-size: 6.5vw;
   margin: 7.5px;
 }
 
@@ -124,13 +159,15 @@ input:checked + .slider:before { /* this will be in JAVASCRIPT */
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  margin-top: 10px;
 }
 
 .title {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 22px;
-  margin: 10px 5px;
-  /*margin-right: 17.5px;*/
+  font-family: 'Nunito', sans-serif;
+  font-size: 32.5px;
+  letter-spacing: 1px;
+  margin: 0px 0px;
+  margin-bottom: -5px;
 }
 
 .add {
@@ -144,7 +181,7 @@ input:checked + .slider:before { /* this will be in JAVASCRIPT */
   height: 20px;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
-  background-color: #2b4ea2;
+  background-color: #63acff;
 }
 
 .instr {
@@ -154,11 +191,20 @@ input:checked + .slider:before { /* this will be in JAVASCRIPT */
   font-size: 12px;
 }
 
+.mini {
+  font-family: 'Nunito', sans-serif;
+  margin: 0px 0px;
+  text-align: center;
+  font-size: 10px;
+}
+
 .favicon {
   height: 50px;
   width: 50px;
   background-image: url('ImmerseFavicon.png');
   background-size: cover;
+  margin-right: 15px;
+  /*margin-top: 15px;*/
 }
 
 .bordered {
