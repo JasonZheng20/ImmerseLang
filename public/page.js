@@ -6,6 +6,7 @@ chrome.runtime.onConnect.addListener(function(port) {
 
 var initiate = true;
 var currNode1 = "";
+this.finish = this.finish.bind(this);
 
 var bubbleDOM = document.createElement('div');
 bubbleDOM.setAttribute('class', 'selection_bubble');
@@ -43,21 +44,28 @@ async function onMessage(message) {
     console.log(decks);
     document.body.style = "opacity: 0.3";
     for (let i = 0; i < deckArray.length; i ++) {
-      const word = new RegExp('\\b' + deckArray[i] + '\\b', "g"); //make it so if the word is an article like "the", find the word following
-      const translationQuery = await fetch('http://localhost:3000/getTranslation/' + encodeURIComponent(msg[1]) + '/' + encodeURIComponent(deckArray[i])); //current functionality for spanish
-      const translationJson = await translationQuery.json(); //THE FIX IS MAKE A SERVER WITH HTTPS THATS IT, ALSO CREATE A CATCH ^
-      if (Object.values(translationJson) == 'success') {
-        const translationFinish = await fetch('http://localhost:3000/finishTranslation/' + encodeURIComponent(deckArray[i]));
-        const finishJson = await translationFinish.json();
-        const translationTemp = Object.values(finishJson);
-        const translation = translationTemp[1]; //obviously this doesnt scale well
-        const traverse = await traversePage(document.querySelector('body'), word, msg[1], translation, deckArray[i]);
-      }
+      doIt(deckArray, i, msg); //dramatically improves runtime, but requires different backend structure for requests
     }
-    const doneLoading = await finish();
+    // const end = await finish();
   }
   else {
     console.log('inactive');
+  }
+}
+
+async function doIt(deckArray, i, msg) {
+  const word = new RegExp('\\b' + deckArray[i] + '\\b', "g"); //make it so if the word is an article like "the", find the word following
+  const translationQuery = await fetch('http://localhost:3000/getTranslation/' + encodeURIComponent(msg[1]) + '/' + encodeURIComponent(deckArray[i])); //current functionality for spanish
+  const translationJson = await translationQuery.json(); //THE FIX IS MAKE A SERVER WITH HTTPS THATS IT, ALSO CREATE A CATCH ^
+  if (Object.values(translationJson) == 'success') {
+    const translationFinish = await fetch('http://localhost:3000/finishTranslation/' + encodeURIComponent(deckArray[i]));
+    const finishJson = await translationFinish.json();
+    const translationTemp = Object.values(finishJson);
+    const translation = translationTemp[1]; //obviously this doesnt scale well
+    const traverse = await traversePage(document.querySelector('body'), word, msg[1], translation, deckArray[i]);
+    if (i == deckArray.length - 1) {
+      const endIt = await finish();
+    }
   }
 }
 
