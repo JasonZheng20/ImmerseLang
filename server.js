@@ -214,17 +214,7 @@ app.get('/getTranslation/:lang/:word', jsonParser, initiateTranslation);
 
 async function finishTranslation(req, res) {
   const word = req.params.word
-  let wordTranslation = "Loading..."
-  while (wordTranslation == "Loading...") {
-    const newRow = await translation_sheet.getRows(); //have a way to handle loading...
-    for (let i = 0; i < newRow.rows.length; i++) {
-      const currRow = newRow.rows[i];
-      if (currRow[0] == word) {
-        wordTranslation = currRow[1];
-      }
-      console.log(currRow[0]);
-    }
-  }
+  const wordTranslation = await getHelper(word);
   const clear = await refreshRows(translation_sheet);
   res.json( {
     original: word,
@@ -232,9 +222,25 @@ async function finishTranslation(req, res) {
 }
 app.get('/finishTranslation/:word', jsonParser, finishTranslation);
 
+async function getHelper(word) {
+  let wordTranslation = "Loading...";
+  while (wordTranslation == "Loading...") {
+    const newRow = await translation_sheet.getRows(); //have a way to handle loading...
+    for (let i = 0; i < newRow.rows.length; i++) {
+      const currRow = newRow.rows[i];
+      if (currRow[0] == word) {
+        wordTranslation = currRow[1];
+        console.log(wordTranslation);
+        return wordTranslation;
+      }
+    }
+  }
+}
+
 async function refreshRows(sheet) {
   const myRows = await sheet.getRows();
-  for (let i = 0; i < myRows.rows.length; i ++) {
+  const length = myRows.rows.length;
+  for (let i = 0; i < length; i ++) {
     sheet.deleteRow(i);
   }
 }

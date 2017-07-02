@@ -40,7 +40,7 @@ async function onMessage(message) {
   const active = msg[0]; //delimit the message by ':'
   if (active) {
     const decks = msg[2];
-    const deckArray = decks.split('~'); //IT DOESNT GET UPPER CASE WORDS
+    const deckArray = decks.split(','); //IT DOESNT GET UPPER CASE WORDS
     console.log(decks);
     document.body.style = "opacity: 0.3";
     for (let i = 0; i < deckArray.length; i ++) {
