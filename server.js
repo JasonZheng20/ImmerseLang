@@ -207,7 +207,7 @@ async function initiateTranslation(req, res) { //when i do this twice in a row, 
   const rowArray = [];
   rowArray[0] = word;
   rowArray[1] = row;
-  const set = await translation_sheet.setRow(0, rowArray);
+  const set = await translation_sheet.appendRow(rowArray);
   const send = await res.json({status: 'success'});
 }
 app.get('/getTranslation/:lang/:word', jsonParser, initiateTranslation);
@@ -217,14 +217,27 @@ async function finishTranslation(req, res) {
   let wordTranslation = "Loading..."
   while (wordTranslation == "Loading...") {
     const newRow = await translation_sheet.getRows(); //have a way to handle loading...
-    const newRow0 = newRow.rows[0];
-    wordTranslation = newRow0[1];
+    for (let i = 0; i < newRow.rows.length; i++) {
+      const currRow = newRow.rows[i];
+      if (currRow[0] == word) {
+        wordTranslation = currRow[1];
+      }
+      console.log(currRow[0]);
+    }
   }
+  const clear = await refreshRows(translation_sheet);
   res.json( {
     original: word,
     translation: wordTranslation} );
 }
 app.get('/finishTranslation/:word', jsonParser, finishTranslation);
+
+async function refreshRows(sheet) {
+  const myRows = await sheet.getRows();
+  for (let i = 0; i < myRows.rows.length; i ++) {
+    sheet.deleteRow(i);
+  }
+}
 
 //-----------------------------------------------------------------Miscellaneous
 // Please don't change this; this is needed to deploy on Heroku.
